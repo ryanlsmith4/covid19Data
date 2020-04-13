@@ -1,30 +1,39 @@
-var http = require("https");
+var https = require("https");
+const axios = require('axios');
 require('dotenv').config()
 
-const region = 'Japan'
-const date = '2020-04-07'
-var options = {
-	"method": "GET",
-	"hostname": "covid-19-statistics.p.rapidapi.com",
-	"port": null,
-	"path": `/reports?date=${date}&q=${region}`,
-	"headers": {
+async function getCallData(){
+	const region = 'Japan';
+	const date = '2020-04-07';
+	let headers = {
+		"content-type": "application/octet-stream",
 		"x-rapidapi-host": "covid-19-statistics.p.rapidapi.com",
 		"x-rapidapi-key": process.env.X_RAPIDAPI_KEY
+	};
+	let params = {
+	"region_province": "Beijing",
+    "iso": "CHN",
+    "region_name": "China",
+    "date": "2020-03-14",
+    "q": "China Beijing"
 	}
-};
 
-var req = http.request(options, function (res) {
-	var chunks = [];
+	let instance = axios.create({
+		// "method":"GET",
+		httpsAgent: new https.Agent({
+			rejectUnauthorized: false
+		}),
+		headers,
+		});
 
-	res.on("data", function (chunk) {
-		chunks.push(chunk);
-	});
+		try {
+			let response =  await instance.get('https://covid-19-statistics.p.rapidapi.com/reports', {
+				params
+			});
 
-	res.on("end", function () {
-		var body = Buffer.concat(chunks);
-		console.log(body.toString());
-	});
-});
-
-req.end();
+			console.log(response)
+		} catch (e) {
+			console.log('err: ', e)
+		}
+}
+getCallData()
