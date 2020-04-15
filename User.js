@@ -15,7 +15,7 @@ class promptUser {
     * @param iso 3 digit ISO country code
    */
   matchCountry (countryIn, isoIn) {
-    if (countryIn || isoIn){
+    if (countryIn || isoIn) {
         let countryCodes = countryFile;
         for (let country in countryCodes){
             let currCountry = countryCodes[country];
@@ -29,24 +29,7 @@ class promptUser {
     } else {
         return false
     }
-}
-    // getRegionInfo(regionName, regionProv){
-    //     regionInfo = [];
-    //     regionInfo.push(regionName, regionProv)
-    //     return regionInfo;
-    // }
-    // getIso(iso){
-    //     this.iso = iso;
-    //     return this.iso;
-    // }
-    // getDate(date){
-    //     this.date = date;
-    //     return this.date
-    // }
-    // getQuery(query){
-    //     this.query = query;
-    //     return this.query;
-    // }
+  }
 }
 
 let user = new promptUser('Uganda', 'UGA');

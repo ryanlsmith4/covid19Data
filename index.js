@@ -12,8 +12,6 @@ async function runApp(){
     // let answers = await prompt(prompts)
     const user = new UserInfo();
     console.log(prompt)
-    // console.log('answers: ',answers)
-    // console.log(countryCodes);
-    // console.log(user)
+
 }
 runApp()
