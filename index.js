@@ -1,39 +1,19 @@
-var https = require("https");
-const axios = require('axios');
-require('dotenv').config()
+const response = require('./response');
+const inquirer = require('inquirer');
+const UserInfo = require('./User');
 
-async function getCallData(){
-	const region = 'Japan';
-	const date = '2020-04-07';
-	let headers = {
-		"content-type": "application/octet-stream",
-		"x-rapidapi-host": "covid-19-statistics.p.rapidapi.com",
-		"x-rapidapi-key": process.env.X_RAPIDAPI_KEY
-	};
-	let params = {
-	"region_province": "Beijing",
-    "iso": "CHN",
-    "region_name": "China",
-    "date": "2020-03-14",
-    "q": "China Beijing"
-	}
 
-	let instance = axios.create({
-		// "method":"GET",
-		httpsAgent: new https.Agent({
-			rejectUnauthorized: false
-		}),
-		headers,
-		});
+// response()
 
-		try {
-			let response =  await instance.get('https://covid-19-statistics.p.rapidapi.com/reports', {
-				params
-			});
-
-			console.log(response)
-		} catch (e) {
-			console.log('err: ', e)
-		}
+async function runApp(){
+    console.log("Hi thanks for Using Covid-19 data tracker\n")
+    const prompt = inquirer.createPromptModule();
+    // const prompts = [{name: 'Name of the Region?'}, {name: 'Country ISO code? (if known)'},{ name: 'Date in which requesting data?'}, { name:'General query (This can be country, region or province)?'}];
+    // let answers = await prompt(prompts)
+    const user = new UserInfo();
+    console.log(prompt)
+    // console.log('answers: ',answers)
+    // console.log(countryCodes);
+    // console.log(user)
 }
-getCallData()
+runApp()
