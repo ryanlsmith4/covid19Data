@@ -2,7 +2,7 @@ var https = require("https");
 const axios = require('axios');
 require('dotenv').config()
 
-module.exports = async function(regionProv, iso, regionName, date, query){
+const request =  async function(regionProv, iso, regionName, date, query){
 	let headers = {
 		"content-type": "application/octet-stream",
 		"x-rapidapi-host": "covid-19-statistics.p.rapidapi.com",
@@ -35,3 +35,4 @@ module.exports = async function(regionProv, iso, regionName, date, query){
 		}
 }
 
+module.exports = request;
