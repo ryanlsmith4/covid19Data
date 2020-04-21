@@ -1,38 +1,46 @@
 const countryFile = require('./countryCodes.json')
+const inquirer = require('inquirer');
 
-class promptUser {
-    constructor(regionProv, iso, regionName, date, query ){
-        this.regionProv = regionProv;
-        this.iso =  iso;
+
+class Query {
+    constructor(countryIn, isoIn, regionName, date, query ){
+        this.countryIn = countryIn;
+        this.isoIn = isoIn;
         this.regionName = regionName;
         this.date = date;
         this.query = query;
     }
+    /**
+     * @function promptUser Prompts user for custom query
+     */
+    async promptUser () {
+        const prompt = inquirer.createPromptModule();
+        let prompts = [{name: 'Name of the Region?'}, {name: 'Country ISO code? (if known)'},{ name: 'Date in which requesting data?'}, { name:'General query (This can be country, region or province)?'}]
+        let answers = await prompt(prompts)
+      console.log(answers)
+    }
+
     /** 
     * @function matchCountry matches user input to the country code
     * helps reduce bad lookups
-    * @param country The country in which to attempt to match ISO code
-    * @param iso 3 digit ISO country code
    */
-  matchCountry (countryIn, isoIn) {
-    if (countryIn || isoIn) {
+  matchCountry () {
         let countryCodes = countryFile;
-        for (let country in countryCodes){
+        for (let country in countryCodes) {
             let currCountry = countryCodes[country];
-            if (currCountry['country_name'] == countryIn && currCountry['alpha_3'] == isoIn) {
+            if (currCountry['country_name'] == this.countryIn && currCountry['alpha_3'] == this.isoIn) {
                 const region = [];
-                return region.push(countryIn, isoIn)
-            } else if (currCountry['country_name'] == countryIn || currCountry['alpha_3'] == isoIn) {
-                throw new Error('Check country and country code to be sure they belong to same country');
+                region.push(this.countryIn, this.isoIn)
+                return region
+            } else if (currCountry['country_name'] == this.countryIn || currCountry['alpha_3'] == this.isoIn) {
+                // throw new Error('Check country and country code to be sure they belong to same country');
+                return 'Check country and country code to be sure they belong to same country'
             }
         }
-    } else {
-        return false
-    }
   }
 }
 
-let user = new promptUser('Uganda', 'UGA');
+let query = new Query();
 // console.log(user)
-console.log(user.matchCountry('Uganda', 'UGA'))
+console.log(query.promptUser())
 // module.exports = promptUser;

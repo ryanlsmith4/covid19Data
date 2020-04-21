@@ -1,5 +1,4 @@
 const response = require('./response');
-const inquirer = require('inquirer');
 const UserInfo = require('./User');
 
 
