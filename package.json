@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "autocompleter": "^6.0.3",
     "axios": "^0.19.2",
     "dotenv": "^8.2.0",
+    "enquirer": "^2.3.5",
     "inquirer": "^7.1.0"
   },
   "devDependencies": {},

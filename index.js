@@ -1,16 +1,23 @@
-const response = require('./response');
-const Query = require('./Query');
+const countryFile = require("./countryCodes.json");
+const { request } = require("./request");
+const { promptUser } = require("./Query");
+// const request = async function (region, date, query)
 
-
-// response()
-
-async function runApp(){
-    console.log("Hi thanks for Using Covid-19 data tracker\n")
-    const prompt = inquirer.createPromptModule();
-    // const prompts = [{name: 'Name of the Region?'}, {name: 'Country ISO code? (if known)'},{ name: 'Date in which requesting data?'}, { name:'General query (This can be country, region or province)?'}];
-    const query = new Query();
-    // let answers = await prompt(prompts)
-    console.log(prompt)
-
+/**
+ * @function setUp Used to set up the API call
+ */
+async function setUp() {
+  const questions = ["What country would you like to look Up?"];
+  let country = await promptUser(countryFile, questions[0], "country_name");
+  return country;
 }
-runApp()
+
+async function runApp() {
+  console.log("Hi and Welcome to The COVID-19 Data tracker CLI.");
+  let info = await setUp();
+  console.log(info)
+  let response = await request(info)
+  console.log(response)
+}
+
+runApp();
