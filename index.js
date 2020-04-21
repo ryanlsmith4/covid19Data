@@ -15,9 +15,8 @@ async function setUp() {
 async function runApp() {
   console.log("Hi and Welcome to The COVID-19 Data tracker CLI.");
   let info = await setUp();
-  console.log(info)
-  let response = await request(info)
-  console.log(response)
+  let response = await request(info);
+  console.log(response.data);
 }
 
 runApp();
